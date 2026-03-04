@@ -6,7 +6,7 @@ catalog.append(Smartphone(
     brand="Apple", model="iPhone 15", phone_number="+79123456789"
 ))
 catalog.append(Smartphone(
-    brand="Samsung", model="Galaxy S24", phone_number="234567890"
+    brand="Samsung", model="Galaxy S24", phone_number="+79234567890"
 ))
 catalog.append(Smartphone(
     brand="Xiaom", model="Mi 13", phone_number="+79345678901"
