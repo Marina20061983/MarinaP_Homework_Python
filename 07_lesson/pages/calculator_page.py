@@ -16,6 +16,7 @@ class SlowCalculatorPage:
         self.screen = (By.CLASS_NAME, "screen")
 
     def open(self):
+        """метод открывает сайт"""
         self.driver.get("https://bonigarcia.dev/selenium-webdriver-java/slow-calculator.html")
 
     def set_delay(self, delay):

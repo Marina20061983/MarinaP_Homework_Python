@@ -27,3 +27,6 @@ class LoginPage:
         WebDriverWait(self.driver, 10).until(
             EC.element_to_be_clickable(self.login_button)
         ).click()
+
+    def open(self):
+        self.driver.get("https://www.saucedemo.com/")

@@ -2,29 +2,20 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from pages.calculator_page import SlowCalculatorPage
 
 
 def test_slow_calculator():
+
     driver = webdriver.Chrome()
-    driver.get("https://bonigarcia.dev/selenium-webdriver-java/"
-            "slow-calculator.html")
+    page = SlowCalculatorPage(driver)
+    page.open()
+    page.set_delay(3)
+    page.click_button_7()
+    page.click_plus()
+    page.click_button_8()
+    page.click_equals()
+    assert page.get_result() =="15"
 
-    wait = WebDriverWait(driver, 50)
-
-    delay_input = driver.find_element(By.CSS_SELECTOR, "#delay")
-    delay_input.clear()
-    delay_input.send_keys("45")
-
-    driver.find_element(By.XPATH, "//span[text()='7']").click()
-    driver.find_element(By.XPATH, "//span[text()='+']").click()
-    driver.find_element(By.XPATH, "//span[text()='8']").click()
-    driver.find_element(By.XPATH, "//span[text()='=']").click()
-
-    wait.until(
-        EC.text_to_be_present_in_element((By.CLASS_NAME, "screen"), "15")
-    )
-
-    result = driver.find_element(By.CLASS_NAME, "screen").text
-    assert result == "15", f"Ожидали 15, но получили {result}"
 
     driver.quit()
