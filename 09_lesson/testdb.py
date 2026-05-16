@@ -1,9 +1,9 @@
-from sqlalchemy import create_engine, inspect, text
-from sqlalchemy.exc import SQLAlchemyError
-import pytest
+from sqlalchemy import create_engine, text
+
 
 db_connection_string = "postgresql://postgres:7382238@localhost:5432/QA"
 db = create_engine(db_connection_string)
+
 
 def test_add_user():
     """Тест на добавление user."""
@@ -13,7 +13,8 @@ def test_add_user():
     with db.connect() as connection:
         # Добавляем тестового пользователя
         connection.execute(
-            text("INSERT INTO users (user_email, subject_id) VALUES (:email, :subject_id)"),
+            text("INSERT INTO users (user_email, subject_id) \
+            VALUES (:email, :subject_id)"),
             {"email": test_email, "subject_id": test_subject_id}
         )
         connection.commit()
@@ -38,6 +39,7 @@ def test_add_user():
         )
         connection.commit()
 
+
 def test_delete_user():
     """Тест на удаление user."""
     test_email = "deleteuser@example.com"
@@ -46,7 +48,8 @@ def test_delete_user():
     with db.connect() as connection:
         # Создаем пользователя
         connection.execute(
-            text("INSERT INTO users (user_email, subject_id) VALUES (:email, :subject_id)"),
+            text("INSERT INTO users (user_email, subject_id) \
+            VALUES (:email, :subject_id)"),
             {"email": test_email, "subject_id": test_subject_id}
         )
         connection.commit()
@@ -74,9 +77,10 @@ def test_delete_user():
         rows = result.all()
         assert len(rows) == 0, "Пользователь не был удален"
 
+
 def test_update_user():
     """Тест на редактирование user."""
-    test_email = "testuser@example.com"
+    test_email = "user@example.com"
     new_email = "updateduser@example.com"
     test_subject_id = 3
     new_subject_id = 4
@@ -84,7 +88,8 @@ def test_update_user():
     with db.connect() as connection:
         # Создаем пользователя
         connection.execute(
-            text("INSERT INTO users (user_email, subject_id) VALUES (:email, :subject_id)"),
+            text("INSERT INTO users (user_email, subject_id) \
+            VALUES (:email, :subject_id)"),
             {"email": test_email, "subject_id": test_subject_id}
         )
         connection.commit()
@@ -122,4 +127,3 @@ def test_update_user():
             {"email": new_email}
         )
         connection.commit()
-
