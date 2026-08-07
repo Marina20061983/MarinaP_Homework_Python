@@ -13,7 +13,8 @@ class CheckoutPage:
         self.total_price_label = (By.CLASS_NAME, "summary_total_label")
 
     @allure.step("Заполнение формы оформления заказа: имя={first_name}, фамилия={last_name}, индекс={postal_code}")
-    def fill_checkout_form(self, first_name, last_name, postal_code):
+    def fill_checkout_form(self, first_name, last_name, postal_code) ->None:
+        """Заполняет форму отправки и отправляет"""
         first_name_field = WebDriverWait(self.driver, 10).until(
             EC.visibility_of_element_located(self.first_name_input)
         )
@@ -34,7 +35,8 @@ class CheckoutPage:
         ).click()
 
     @allure.step("Получение итоговой суммы заказа")
-    def get_total_price(self):
+    def get_total_price(self) ->str:
+        """Возращает результат итотоговой суммы"""
         total_element = WebDriverWait(self.driver, 10).until(
             EC.visibility_of_element_located(self.total_price_label)
         )
